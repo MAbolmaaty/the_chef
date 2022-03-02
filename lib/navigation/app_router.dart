@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_chef/navigation/app_link.dart';
 import 'package:the_chef/screens/home.dart';
 import 'package:the_chef/models/fooderlich_pages.dart';
 import 'package:the_chef/models/models.dart';
@@ -10,7 +11,7 @@ import 'package:the_chef/screens/profile_screen.dart';
 import 'package:the_chef/screens/splash_screen.dart';
 import 'package:the_chef/screens/webview_screen.dart';
 
-class AppRouter extends RouterDelegate
+class AppRouter extends RouterDelegate<AppLink>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin {
   @override
   // TODO: implement navigatorKey
@@ -99,5 +100,51 @@ class AppRouter extends RouterDelegate
   }
 
   @override
-  Future<void> setNewRoutePath(configuration) async => null;
+  AppLink get currentConfiguration => getCurrentPath();
+
+  AppLink getCurrentPath() {
+    if (!appStateManager.isLoggedIn) {
+      return AppLink(location: AppLink.kLoginPath);
+    } else if (!appStateManager.isOnboardingComplete) {
+      return AppLink(location: AppLink.kOnboardingPath);
+    } else if (profileManager.didSelectUser) {
+      return AppLink(location: AppLink.kProfilePath);
+    } else if (groceryManager.isCreatingNewItem) {
+      return AppLink(location: AppLink.kItemPath);
+    } else if (groceryManager.selectedGroceryItem != null) {
+      final id = groceryManager.selectedGroceryItem?.id;
+      return AppLink(location: AppLink.kItemPath, itemId: id);
+    } else {
+      return AppLink(
+          location: AppLink.kHomePath,
+          currentTab: appStateManager.getSelectedTab);
+    }
+  }
+
+  @override
+  Future<void> setNewRoutePath(AppLink newLink) async {
+    switch (newLink.location) {
+      case AppLink.kProfilePath:
+        profileManager.tapOnProfile(true);
+        break;
+      case AppLink.kItemPath:
+        final itemId = newLink.itemId;
+        if (itemId != null) {
+          groceryManager.setSelectedGroceryItem(itemId);
+        } else {
+          groceryManager.createNewItem();
+        }
+
+        profileManager.tapOnProfile(false);
+        break;
+      case AppLink.kHomePath:
+        appStateManager.goToTab(newLink.currentTab ?? 0);
+
+        profileManager.tapOnProfile(false);
+        groceryManager.groceryItemTapped(-1);
+        break;
+      default:
+        break;
+    }
+  }
 }
