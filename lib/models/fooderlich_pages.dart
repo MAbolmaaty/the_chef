@@ -7,4 +7,5 @@ class FooderlichPages {
   static String profilePath = '/profile';
   static String raywenderlich = '/raywenderlich';
   static String accountPath = '/account';
+  static String SearchRecipesPath = '/searchrecipes';
 }

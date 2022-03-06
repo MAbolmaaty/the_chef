@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_chef/models/fooderlich_pages.dart';
 import 'package:the_chef/models/models.dart';
 import 'package:the_chef/models/profile_manager.dart';
+import 'package:the_chef/models/search_recipes_manager.dart';
 import 'package:the_chef/screens/explore_screen.dart';
 import 'package:the_chef/screens/grocery_screen.dart';
 import 'package:the_chef/screens/recipes_screen.dart';
@@ -30,17 +32,43 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   //int _selectedIndex = 0;
 
-  static List<Widget> pages = <Widget>[
-    ExploreScreen(),
-    RecipesScreen(),
-    const GroceryScreen(),
-  ];
+  List<Widget> pageList = <Widget>[];
+
+  static const String prefSelectedIndexKey = 'selectedIndex';
 
   // void _onItemTapped(int index) {
   //   setState(() {
   //     _selectedIndex = index;
   //   });
   // }
+
+  @override
+  void initState() {
+    super.initState();
+    pageList.add(ExploreScreen());
+    pageList.add(RecipesScreen());
+    pageList.add(const GroceryScreen());
+    getCurrentIndex();
+  }
+
+  void saveCurrentIndex() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setInt(prefSelectedIndexKey,
+        Provider.of<AppStateManager>(context, listen: false).getSelectedTab);
+  }
+
+  void getCurrentIndex() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    if (prefs.containsKey(prefSelectedIndexKey)) {
+      setState(() {
+        final index = prefs.getInt(prefSelectedIndexKey);
+        if (index != null) {
+          Provider.of<AppStateManager>(context, listen: false).goToTab(index);
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,12 +81,19 @@ class _HomeState extends State<Home> {
             style: Theme.of(context).textTheme.headline6,
           ),
           actions: [
+            IconButton(
+                onPressed: () {
+                  final manager =
+                      Provider.of<SearchRecipesManager>(context, listen: false);
+                  manager.tapOnSearch(true);
+                },
+                icon: const Icon(Icons.search)),
             profileButton(),
           ],
         ),
         body: IndexedStack(
           index: widget.currentTab,
-          children: pages,
+          children: pageList,
         ),
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor:
@@ -66,6 +101,7 @@ class _HomeState extends State<Home> {
           currentIndex: widget.currentTab,
           onTap: (index) {
             Provider.of<AppStateManager>(context, listen: false).goToTab(index);
+            saveCurrentIndex();
           },
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(

@@ -29,7 +29,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  google_fonts: ^2.1.0
+  google_fonts: ^2.3.1
   provider: ^6.0.2
   flutter_colorpicker: ^1.0.3
   intl: ^0.17.0
@@ -38,9 +38,12 @@ dependencies:
   webview_flutter: ^3.0.0
   url_launcher: ^6.0.20
   shared_preferences: ^2.0.13
+  cached_network_image: ^3.2.0
+  flutter_slidable: ^1.2.0
+  flutter_svg: ^1.0.3
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.4
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +75,7 @@ flutter:
     - assets/sample_data/
     - assets/profile_pics/
     - assets/fooderlich_assets/
+    - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

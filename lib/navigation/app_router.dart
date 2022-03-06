@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_chef/models/search_recipes_manager.dart';
 import 'package:the_chef/navigation/app_link.dart';
 import 'package:the_chef/screens/home.dart';
 import 'package:the_chef/models/fooderlich_pages.dart';
@@ -8,13 +9,13 @@ import 'package:the_chef/screens/grocery_item_screen.dart';
 import 'package:the_chef/screens/login_screen.dart';
 import 'package:the_chef/screens/onboarding_screen.dart';
 import 'package:the_chef/screens/profile_screen.dart';
+import 'package:the_chef/screens/recipes/recipe_list.dart';
 import 'package:the_chef/screens/splash_screen.dart';
 import 'package:the_chef/screens/webview_screen.dart';
 
 class AppRouter extends RouterDelegate<AppLink>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin {
   @override
-  // TODO: implement navigatorKey
   GlobalKey<NavigatorState>? navigatorKey;
 
   final AppStateManager appStateManager;
@@ -23,14 +24,18 @@ class AppRouter extends RouterDelegate<AppLink>
 
   final ProfileManager profileManager;
 
+  final SearchRecipesManager searchRecipesManager;
+
   AppRouter({
     required this.appStateManager,
     required this.groceryManager,
     required this.profileManager,
+    required this.searchRecipesManager,
   }) : navigatorKey = GlobalKey<NavigatorState>() {
     appStateManager.addListener(notifyListeners);
     groceryManager.addListener(notifyListeners);
     profileManager.addListener(notifyListeners);
+    searchRecipesManager.addListener(notifyListeners);
   }
 
   @override
@@ -71,6 +76,7 @@ class AppRouter extends RouterDelegate<AppLink>
         if (profileManager.didSelectUser)
           ProfileScreen.page(profileManager.getUser),
         if (profileManager.didTapOnRaywenderlich) WebViewScreen.page(),
+        if (searchRecipesManager.searchScreen) RecipeList.page()
       ],
     );
   }
@@ -94,6 +100,10 @@ class AppRouter extends RouterDelegate<AppLink>
 
     if (route.settings.name == FooderlichPages.raywenderlich) {
       profileManager.tapOnRaywenderlich(false);
+    }
+
+    if (route.settings.name == FooderlichPages.SearchRecipesPath) {
+      searchRecipesManager.tapOnSearch(false);
     }
 
     return true;
