@@ -13,7 +13,7 @@ import 'package:logging/logging.dart';
 Future<void> main() async {
   _setupLogging();
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const Fooderlich());
+  //runApp(const Fooderlich());
 }
 
 void _setupLogging() {
