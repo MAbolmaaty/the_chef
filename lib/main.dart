@@ -8,9 +8,19 @@ import 'package:the_chef/navigation/app_route_parser.dart';
 import 'package:the_chef/navigation/app_router.dart';
 
 import 'fooderlich_theme.dart';
+import 'package:logging/logging.dart';
 
-void main() {
+Future<void> main() async {
+  _setupLogging();
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const Fooderlich());
+}
+
+void _setupLogging() {
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((rec) {
+    print('${rec.level.name}: ${rec.time}: ${rec.message}');
+  });
 }
 
 class Fooderlich extends StatefulWidget {
