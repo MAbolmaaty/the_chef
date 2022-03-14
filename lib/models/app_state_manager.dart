@@ -25,7 +25,7 @@ class AppStateManager extends ChangeNotifier {
     _loggedIn = await _appCache.isUserLoggedIn();
     _onboardingComplete = await _appCache.didCompleteOnboarding();
 
-    Timer(const Duration(milliseconds: 2000), () {
+    Timer(const Duration(milliseconds: 0), () {
       _initialized = true;
       notifyListeners();
     });

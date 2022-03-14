@@ -53,10 +53,11 @@ class AppRouter extends RouterDelegate<AppLink>
       onPopPage: _handlePopPage,
       pages: [
         if (!appStateManager.isInitialized) SplashScreen.page(),
-        if (appStateManager.isInitialized && !appStateManager.isLoggedIn)
-          LoginScreen.page(),
-        if (appStateManager.isLoggedIn && !appStateManager.isOnboardingComplete)
-          OnboardingScreen.page(),
+        // if (appStateManager.isInitialized && !appStateManager.isLoggedIn)
+        //   LoginScreen.page(),
+        // if (appStateManager.isLoggedIn && !appStateManager.isOnboardingComplete)
+        //   OnboardingScreen.page(),
+        if (!appStateManager.isOnboardingComplete) OnboardingScreen.page(),
         if (appStateManager.isOnboardingComplete)
           Home.page(appStateManager.getSelectedTab),
         if (groceryManager.isCreatingNewItem)
