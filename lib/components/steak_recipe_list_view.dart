@@ -5,15 +5,14 @@ import 'package:the_chef/network/model_response.dart';
 import 'package:the_chef/network/recipe_model.dart';
 import 'package:the_chef/network/recipe_service.dart';
 
-class VegetarianRecipeListView extends StatefulWidget {
-  const VegetarianRecipeListView({Key? key}) : super(key: key);
+class SteakRecipeListView extends StatefulWidget {
+  const SteakRecipeListView({Key? key}) : super(key: key);
 
   @override
-  State<VegetarianRecipeListView> createState() =>
-      _VegetarianRecipeListViewState();
+  State<SteakRecipeListView> createState() => _SteakRecipeListViewState();
 }
 
-class _VegetarianRecipeListViewState extends State<VegetarianRecipeListView> {
+class _SteakRecipeListViewState extends State<SteakRecipeListView> {
   List<APIHits> recipeList = [];
   int currentCount = 0;
 
@@ -28,7 +27,7 @@ class _VegetarianRecipeListViewState extends State<VegetarianRecipeListView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('🥦 Vegetarian Recipes',
+          Text('🥩 Steak Recipes',
               style: Theme.of(context)
                   .textTheme
                   .headline1!
@@ -45,7 +44,7 @@ class _VegetarianRecipeListViewState extends State<VegetarianRecipeListView> {
   Widget _buildRecipeLoader(BuildContext context) {
     return FutureBuilder<Response<Result<APIRecipeQuery>>>(
         future: RecipeService.create().queryRecipes(
-          "vegetarian",
+          "steak",
           0,
           10,
         ),

@@ -39,6 +39,7 @@ Map<String, dynamic> _$APIHitsToJson(APIHits instance) => <String, dynamic>{
 APIRecipe _$APIRecipeFromJson(Map<String, dynamic> json) => APIRecipe(
       label: json['label'] as String,
       image: json['image'] as String,
+      source: json['source'] as String,
       url: json['url'] as String,
       ingredients: (json['ingredients'] as List<dynamic>)
           .map((e) => APIIngredients.fromJson(e as Map<String, dynamic>))
@@ -51,6 +52,7 @@ APIRecipe _$APIRecipeFromJson(Map<String, dynamic> json) => APIRecipe(
 Map<String, dynamic> _$APIRecipeToJson(APIRecipe instance) => <String, dynamic>{
       'label': instance.label,
       'image': instance.image,
+      'source': instance.source,
       'url': instance.url,
       'ingredients': instance.ingredients,
       'calories': instance.calories,

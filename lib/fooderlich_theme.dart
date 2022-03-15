@@ -77,7 +77,7 @@ class FooderlichTheme {
         backgroundColor: Colors.black,
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        selectedItemColor: Colors.green,
+        selectedItemColor: Color(0xff900B0B),
       ),
       textTheme: lightTextTheme,
     );

@@ -45,6 +45,7 @@ class APIHits {
 class APIRecipe {
   String label;
   String image;
+  String source;
   String url;
   List<APIIngredients> ingredients;
   double calories;
@@ -54,6 +55,7 @@ class APIRecipe {
   APIRecipe({
     required this.label,
     required this.image,
+    required this.source,
     required this.url,
     required this.ingredients,
     required this.calories,
@@ -78,7 +80,14 @@ String getweight(double? weight) {
   if (weight == null) {
     return '0g';
   }
-  return weight.floor().toString() + 'g';
+  return weight.floor().toString() + ' g';
+}
+
+String getTime(double? time) {
+  if (time == null) {
+    return '0 min';
+  }
+  return time.floor().toString() + ' min';
 }
 
 @JsonSerializable()

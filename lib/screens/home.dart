@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_chef/models/fooderlich_pages.dart';
@@ -77,18 +78,19 @@ class _HomeState extends State<Home> {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Fooderlich',
-            style: Theme.of(context).textTheme.headline6,
+            'The Chef',
+            style: GoogleFonts.diplomata(
+                color: const Color(0xff900B0B), fontWeight: FontWeight.bold),
           ),
           actions: [
-            IconButton(
-                onPressed: () {
-                  final manager =
-                      Provider.of<SearchRecipesManager>(context, listen: false);
-                  manager.tapOnSearch(true);
-                },
-                icon: const Icon(Icons.search)),
-            profileButton(),
+            // IconButton(
+            //     onPressed: () {
+            //       final manager =
+            //           Provider.of<SearchRecipesManager>(context, listen: false);
+            //       manager.tapOnSearch(true);
+            //     },
+            //     icon: const Icon(Icons.search)),
+            //profileButton(),
           ],
         ),
         body: IndexedStack(

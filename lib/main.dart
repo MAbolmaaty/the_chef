@@ -11,7 +11,7 @@ import 'fooderlich_theme.dart';
 import 'package:logging/logging.dart';
 
 Future<void> main() async {
-  _setupLogging();
+  //_setupLogging();
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const Fooderlich());
 }
@@ -68,7 +68,7 @@ class _FooderlichState extends State<Fooderlich> {
           }
           return MaterialApp.router(
             theme: theme,
-            title: 'Fooderlich',
+            title: 'The Chef',
             debugShowCheckedModeBanner: false,
             backButtonDispatcher: RootBackButtonDispatcher(),
             routeInformationParser: routeParser,
