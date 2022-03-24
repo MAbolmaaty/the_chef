@@ -1,8 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:the_chef/models/models.dart';
+import 'package:the_chef/network/recipe_model.dart';
 
 class RecipeThumbnail extends StatelessWidget {
-  final SimpleRecipe recipe;
+  final APIRecipe recipe;
 
   const RecipeThumbnail({
     Key? key,
@@ -14,12 +15,12 @@ class RecipeThumbnail extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
               child: ClipRRect(
-            child: Image.asset(
-              recipe.dishImage,
+            child: CachedNetworkImage(
+              imageUrl: recipe.image,
               fit: BoxFit.cover,
             ),
             borderRadius: BorderRadius.circular(12),
@@ -28,12 +29,13 @@ class RecipeThumbnail extends StatelessWidget {
             height: 10,
           ),
           Text(
-            recipe.title,
+            recipe.label,
             maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.bodyText1,
           ),
           Text(
-            recipe.duration,
+            getTime(recipe.totalTime),
             style: Theme.of(context).textTheme.bodyText1,
           )
         ],

@@ -33,7 +33,7 @@ class EmptyGroceryScreen extends StatelessWidget {
                 child: const Text('Browse Recipes'),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0)),
-                color: Colors.green,
+                color: const Color(0xff900B0B),
                 onPressed: () {
                   Provider.of<AppStateManager>(context, listen: false)
                       .goToRecipes();

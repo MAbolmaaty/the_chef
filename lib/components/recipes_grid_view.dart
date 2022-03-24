@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:the_chef/components/components.dart';
 import 'package:the_chef/models/models.dart';
+import 'package:the_chef/network/recipe_model.dart';
 
 class RecipesGridView extends StatelessWidget {
-  final List<SimpleRecipe> recipes;
+  final List<APIHits> recipes;
 
   const RecipesGridView({Key? key, required this.recipes}) : super(key: key);
 
@@ -20,8 +21,8 @@ class RecipesGridView extends StatelessWidget {
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2),
           itemBuilder: (context, index) {
-            final simpleRecipe = recipes[index];
-            return RecipeThumbnail(recipe: simpleRecipe);
+            final recipe = recipes[index].recipe;
+            return RecipeThumbnail(recipe: recipe);
           }),
     );
   }
