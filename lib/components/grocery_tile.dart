@@ -110,7 +110,6 @@ class GroceryTile extends StatelessWidget {
   }
 
   Widget buildCheckbox() {
-    print("item.isComplete : " + item.isComplete.toString());
     return Checkbox(value: item.isComplete, onChanged: onComplete);
   }
 }
