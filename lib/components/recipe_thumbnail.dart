@@ -18,12 +18,9 @@ class RecipeThumbnail extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
-              child: ClipRRect(
-            child: CachedNetworkImage(
-              imageUrl: recipe.image,
-              fit: BoxFit.cover,
-            ),
-            borderRadius: BorderRadius.circular(12),
+              child: CachedNetworkImage(
+            imageUrl: recipe.image,
+            fit: BoxFit.cover,
           )),
           const SizedBox(
             height: 10,

@@ -47,7 +47,7 @@ class _VegetarianRecipeListViewState extends State<VegetarianRecipeListView> {
         future: RecipeService.create().queryRecipes(
           "vegetarian",
           0,
-          10,
+          5,
         ),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
@@ -91,6 +91,7 @@ class _VegetarianRecipeListViewState extends State<VegetarianRecipeListView> {
             // inErrorState = false;
             currentCount = query.count;
             // hasMore = query.more;
+            recipeList.clear();
             recipeList.addAll(query.hits);
 
             // if (query.to < currentEndPosition) {

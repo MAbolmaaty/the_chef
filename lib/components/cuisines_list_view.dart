@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:the_chef/models/cuisine.dart';
 
 class CuisinesListView extends StatelessWidget {
   CuisinesListView({Key? key}) : super(key: key);
 
-  final List<Cuisine> cuisines = [
-    Cuisine(
-        label: 'American Cuisine',
-        image: "assets/images/statue_of_liberty.svg"),
-    Cuisine(label: 'British Cuisine', image: "assets/images/london_bridge.svg"),
-    Cuisine(label: 'Chinese Cuisine', image: "assets/images/dragon.svg"),
-    Cuisine(label: 'French Cuisine', image: "assets/images/eifel_tower.svg"),
-    Cuisine(label: 'Indian Cuisine', image: "assets/images/taj-mahal.svg"),
-    Cuisine(label: 'Italian Cuisine', image: "assets/images/tower_of_pisa.svg"),
-    Cuisine(label: 'Japanese Cuisine', image: "assets/images/tori_gate.svg"),
-    Cuisine(label: 'Mexican Cuisine', image: "assets/images/mexico.svg"),
-    Cuisine(
-        label: 'Middle Eastern Cuisine',
-        image: "assets/images/eye_of_horus.svg"),
+  final List<String> cuisines = [
+    'American Cuisine',
+    'British Cuisine',
+    'Chinese Cuisine',
+    'French Cuisine',
+    'Indian Cuisine',
+    'Italian Cuisine',
+    'Japanese Cuisine',
+    'Mexican Cuisine',
+    'Middle Eastern Cuisine',
   ];
 
   @override
@@ -44,7 +38,7 @@ class CuisinesListView extends StatelessWidget {
     );
   }
 
-  Widget _buildCard(Cuisine cuisine) {
+  Widget _buildCard(String cuisine) {
     return Container(
       height: 40,
       width: 40,
@@ -59,28 +53,15 @@ class CuisinesListView extends StatelessWidget {
               spreadRadius: 1),
         ],
       ),
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.center,
-            child: SvgPicture.asset(
-              cuisine.image,
-              height: 50.0,
-              width: 50.0,
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Text(
-              cuisine.label,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                  fontSize: 9,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff900B0B)),
-            ),
-          ),
-        ],
+      child: Center(
+        child: Text(
+          cuisine,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+              fontSize: 8,
+              fontWeight: FontWeight.bold,
+              color: Color(0xff900B0B)),
+        ),
       ),
     );
   }

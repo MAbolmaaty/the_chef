@@ -19,16 +19,14 @@ class AppStateManager extends ChangeNotifier {
   bool get isInitialized => _initialized;
   bool get isLoggedIn => _loggedIn;
   bool get isOnboardingComplete => _onboardingComplete;
+  set isOnboardingComplete(value) => _onboardingComplete = value;
   int get getSelectedTab => _selectedTab;
 
   void initializeApp() async {
-    _loggedIn = await _appCache.isUserLoggedIn();
+    //_loggedIn = await _appCache.isUserLoggedIn();
     _onboardingComplete = await _appCache.didCompleteOnboarding();
-
-    Timer(const Duration(milliseconds: 0), () {
-      _initialized = true;
-      notifyListeners();
-    });
+    _initialized = true;
+    notifyListeners();
   }
 
   void login(String username, String password) async {

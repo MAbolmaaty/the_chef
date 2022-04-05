@@ -65,6 +65,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         MaterialButton(
+            highlightColor: Colors.transparent,
             child: Text(
               'Skip',
               style: GoogleFonts.italiana(

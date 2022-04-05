@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:the_chef/models/app_cache.dart';
 import 'package:the_chef/models/models.dart';
 import 'package:the_chef/models/profile_manager.dart';
 import 'package:the_chef/models/search_recipes_manager.dart';
@@ -13,7 +14,8 @@ import 'package:logging/logging.dart';
 Future<void> main() async {
   //_setupLogging();
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const Fooderlich());
+  bool isCompleteOnboarding = await AppCache().didCompleteOnboarding();
+  runApp(Fooderlich(compeleteOnboarding: isCompleteOnboarding));
 }
 
 void _setupLogging() {
@@ -24,7 +26,12 @@ void _setupLogging() {
 }
 
 class Fooderlich extends StatefulWidget {
-  const Fooderlich({Key? key}) : super(key: key);
+  final bool compeleteOnboarding;
+
+  const Fooderlich({
+    Key? key,
+    required this.compeleteOnboarding,
+  }) : super(key: key);
 
   @override
   State<Fooderlich> createState() => _FooderlichState();
@@ -66,6 +73,7 @@ class _FooderlichState extends State<Fooderlich> {
           } else {
             theme = FooderlichTheme.light();
           }
+          _appStateManager.isOnboardingComplete = widget.compeleteOnboarding;
           return MaterialApp.router(
             theme: theme,
             title: 'The Chef',
