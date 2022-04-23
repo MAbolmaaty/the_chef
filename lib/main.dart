@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:the_chef/models/app_cache.dart';
 import 'package:the_chef/models/models.dart';
 import 'package:the_chef/models/profile_manager.dart';
-import 'package:the_chef/models/search_recipes_manager.dart';
+import 'package:the_chef/models/recipes_manager.dart';
 import 'package:the_chef/navigation/app_route_parser.dart';
 
 import 'package:the_chef/navigation/app_router.dart';
@@ -41,7 +41,7 @@ class _FooderlichState extends State<Fooderlich> {
   final _groceryManager = GroceryManager();
   final _profileManager = ProfileManager();
   final _appStateManager = AppStateManager();
-  final _searchRecipesManager = SearchRecipesManager();
+  final _recipesManager = RecipesManager();
   final routeParser = AppRouteParser();
   late AppRouter _appRouter;
 
@@ -51,7 +51,7 @@ class _FooderlichState extends State<Fooderlich> {
       appStateManager: _appStateManager,
       groceryManager: _groceryManager,
       profileManager: _profileManager,
-      searchRecipesManager: _searchRecipesManager,
+      recipesManager: _recipesManager,
     );
     super.initState();
   }
@@ -63,7 +63,7 @@ class _FooderlichState extends State<Fooderlich> {
         ChangeNotifierProvider(create: (context) => _groceryManager),
         ChangeNotifierProvider(create: (context) => _appStateManager),
         ChangeNotifierProvider(create: (context) => _profileManager),
-        ChangeNotifierProvider(create: (context) => _searchRecipesManager),
+        ChangeNotifierProvider(create: (context) => _recipesManager),
       ],
       child: Consumer<ProfileManager>(
         builder: (context, profileManager, chil) {

@@ -1,8 +1,19 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:the_chef/models/recipe.dart';
+import 'package:the_chef/models/fooderlich_pages.dart';
+import 'package:the_chef/network/recipe_model.dart';
 
 class RecipeDetail extends StatefulWidget {
-  final Recipe recipe;
+  final APIRecipe recipe;
+
+  static MaterialPage page({required APIRecipe recipe}) {
+    return MaterialPage(
+        name: FooderlichPages.recipeItemDetails,
+        key: ValueKey(FooderlichPages.recipeItemDetails),
+        child: RecipeDetail(
+          recipe: recipe,
+        ));
+  }
 
   const RecipeDetail({Key? key, required this.recipe}) : super(key: key);
 
@@ -23,12 +34,12 @@ class _RecipeDetailState extends State<RecipeDetail> {
           child: Column(
         children: <Widget>[
           SizedBox(
-            height: 300,
-            width: double.infinity,
-            child: Image(
-              image: AssetImage(widget.recipe.imageUrl),
-            ),
-          ),
+              height: 300,
+              width: double.infinity,
+              child: CachedNetworkImage(
+                imageUrl: widget.recipe.image,
+                fit: BoxFit.cover,
+              )),
           const SizedBox(
             height: 4,
           ),
@@ -42,14 +53,13 @@ class _RecipeDetailState extends State<RecipeDetail> {
                   itemCount: widget.recipe.ingredients.length,
                   itemBuilder: (BuildContext context, int index) {
                     final ingredient = widget.recipe.ingredients[index];
-                    return Text(
-                        '${ingredient.quantity * _sliderVal} ${ingredient.measure} ${ingredient.name}');
+                    return Text('${ingredient.name} ${ingredient.weight}');
                   })),
           Slider(
             min: 1,
             max: 10,
             divisions: 10,
-            label: '${_sliderVal * widget.recipe.servings} servings',
+            label: '${_sliderVal * widget.recipe.calories} servings',
             value: _sliderVal.toDouble(),
             onChanged: (newValue) {
               setState(() {

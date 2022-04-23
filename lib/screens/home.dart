@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_chef/models/fooderlich_pages.dart';
 import 'package:the_chef/models/models.dart';
 import 'package:the_chef/models/profile_manager.dart';
-import 'package:the_chef/models/search_recipes_manager.dart';
 import 'package:the_chef/screens/explore_screen.dart';
 import 'package:the_chef/screens/grocery_screen.dart';
 import 'package:the_chef/screens/recipes_screen.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_chef/components/grocery_tile.dart';
 import 'package:the_chef/models/grocery_manager.dart';
-import 'package:the_chef/screens/grocery_item_screen.dart';
 
 class GroceryListScreen extends StatelessWidget {
   final GroceryManager manager;

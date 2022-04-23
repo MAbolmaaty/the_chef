@@ -1,7 +1,9 @@
 import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:the_chef/components/components.dart';
+import 'package:the_chef/models/recipes_manager.dart';
 import 'package:the_chef/network/model_response.dart';
 import 'package:the_chef/network/recipe_model.dart';
 import 'package:the_chef/network/recipe_service.dart';
@@ -174,7 +176,11 @@ class _RecipesScreenState extends State<RecipesScreen> {
 
             if (result == null || result is Error) {
               //inErrorState = true;
-              return _buildRecipeList(context, recipeList);
+              return Consumer<RecipesManager>(
+                  builder: (context, manager, child) {
+                manager.recipes = recipeList;
+                return _buildRecipeList(context, manager);
+              });
             }
 
             final query = (result as Success).value;
@@ -183,7 +189,10 @@ class _RecipesScreenState extends State<RecipesScreen> {
             currentCount = query.count;
             recipeList.addAll(query.hits);
 
-            return _buildRecipeList(context, recipeList);
+            return Consumer<RecipesManager>(builder: (context, manager, child) {
+              manager.recipes = recipeList;
+              return _buildRecipeList(context, manager);
+            });
           } else {
             if (currentCount == 0) {
               return const Center(
@@ -197,13 +206,18 @@ class _RecipesScreenState extends State<RecipesScreen> {
                 ),
               );
             } else {
-              return _buildRecipeList(context, recipeList);
+              return Consumer<RecipesManager>(
+                  builder: (context, manager, child) {
+                manager.recipes = recipeList;
+                return _buildRecipeList(context, manager);
+              });
             }
           }
         });
   }
 
-  Widget _buildRecipeList(BuildContext recipeListContext, List<APIHits> hits) {
+  Widget _buildRecipeList(
+      BuildContext recipeListContext, RecipesManager recipesManager) {
     // final size = MediaQuery.of(context).size;
     // const itemHeight = 310;
     // final itemWidth = size.width / 2;
@@ -218,10 +232,11 @@ class _RecipesScreenState extends State<RecipesScreen> {
               crossAxisCount: 2),
           controller: _scrollController,
           itemBuilder: (context, index) {
-            final recipe = hits[index].recipe;
-            return RecipeThumbnail(recipe: recipe);
+            final recipe = recipesManager.recipes[index].recipe;
+            return RecipeThumbnail(
+                recipesManager: recipesManager, index: index, recipe: recipe);
           },
-          itemCount: hits.length),
+          itemCount: recipesManager.recipes.length),
     );
   }
 }
